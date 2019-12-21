@@ -11,12 +11,13 @@ namespace Raumbuchung
     class Raumverwaltung
     {            
         private List<String> roomsAvailable = new List<string>();
+        private List<String> roomsReserved = new List<string>();
 
         public Raumverwaltung()
         {
         }
 
-        private void decideRooms(DateTime start, DateTime end)
+        private void determineRooms(DateTime start, DateTime end)
         {
             string appPath = System.AppDomain.CurrentDomain.BaseDirectory;
 
@@ -32,12 +33,18 @@ namespace Raumbuchung
 
                     if ((csvStart <= start) && (start <= csvEnd))
                     {
+                        if (!roomsReserved.Contains(csvRoom))
+                            roomsReserved.Add(csvRoom);
                     }
                     else if((csvStart <= end) && (end <= csvEnd))
                     {
+                        if (!roomsReserved.Contains(csvRoom))
+                            roomsReserved.Add(csvRoom);
                     }
                     else if ((start <= csvStart) && (csvStart <= end))
                     {
+                        if (!roomsReserved.Contains(csvRoom))
+                            roomsReserved.Add(csvRoom);
                     }
                     else
                     {
@@ -50,14 +57,18 @@ namespace Raumbuchung
 
         private string getAvailableRooms()
         {
+            foreach(string room in roomsReserved)
+            {
+                roomsAvailable.Remove(room);
+            }
+
             if(roomsAvailable.Count == 0)
             {
                 return "Keine verfügbaren Räume gefunden!";
             }
             else
             {
-                string roomsAvailableString = string.Join(",", roomsAvailable.ToArray());
-                return "Verfügbare Räume: " + roomsAvailableString;
+                return "Verfügbare Räume: " + string.Join(",", roomsAvailable.ToArray());
             }
         }
 
@@ -73,8 +84,9 @@ namespace Raumbuchung
             end = new DateTime(end.Year, end.Month, end.Day, end.Hour, end.Minute, 0);
 
             roomsAvailable.Clear();
+            roomsReserved.Clear();
 
-            decideRooms(start, end);
+            determineRooms(start, end);
 
             return getAvailableRooms();
         }
