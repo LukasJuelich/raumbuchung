@@ -31,17 +31,8 @@ namespace Raumbuchung
                     var csvEnd = DateTime.Parse(csvData[1]);
                     string csvRoom = csvData[2];
 
-                    if ((csvStart <= start) && (start <= csvEnd))
-                    {
-                        if (!roomsReserved.Contains(csvRoom))
-                            roomsReserved.Add(csvRoom);
-                    }
-                    else if((csvStart <= end) && (end <= csvEnd))
-                    {
-                        if (!roomsReserved.Contains(csvRoom))
-                            roomsReserved.Add(csvRoom);
-                    }
-                    else if ((start <= csvStart) && (csvStart <= end))
+                    if ((csvStart <= start) && (start <= csvEnd) ||
+                        (start <= csvStart) && (csvStart <= end))
                     {
                         if (!roomsReserved.Contains(csvRoom))
                             roomsReserved.Add(csvRoom);
@@ -79,7 +70,7 @@ namespace Raumbuchung
                 return "Zeitparadoxon! Start- und Endzeit sind nicht möglich!";
             }
 
-            //  create new because of milliseconds
+            //  create new DateTime because of milliseconds
             start = new DateTime(start.Year, start.Month, start.Day, start.Hour, start.Minute, 0);
             end = new DateTime(end.Year, end.Month, end.Day, end.Hour, end.Minute, 0);
 

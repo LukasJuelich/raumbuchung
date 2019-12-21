@@ -17,6 +17,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0">Start</Label>
         <tk:DateTimePicker Name="pickerStart" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="0"/>
 
