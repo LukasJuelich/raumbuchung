@@ -10,8 +10,9 @@ namespace Raumbuchung
 {
     class Raumverwaltung
     {            
-        private List<String> roomsAvailable = new List<string>();
-        private List<String> roomsReserved = new List<string>();
+        private List<string> roomsAvailable = new List<string>();
+        private List<string> roomsReserved = new List<string>();
+        private string csvPath = System.AppDomain.CurrentDomain.BaseDirectory + "Probeaufgabe Raumbuchung Beispieldaten.csv";
 
         public Raumverwaltung()
         {
@@ -19,11 +20,9 @@ namespace Raumbuchung
 
         private void determineRooms(DateTime start, DateTime end)
         {
-            string appPath = System.AppDomain.CurrentDomain.BaseDirectory;
-
-            using (StreamReader csvStream = new StreamReader(appPath + "Probeaufgabe Raumbuchung Beispieldaten.csv"))
+            using (StreamReader csvStream = new StreamReader(csvPath))
             {
-                var csvContent = csvStream.ReadLine(); //   skip first line
+                var csvContent = csvStream.ReadLine();  //   skip first line
                 while ((csvContent = csvStream.ReadLine()) != null)
                 {
                     var csvData = csvContent.Split(';');
@@ -63,7 +62,7 @@ namespace Raumbuchung
             }
         }
 
-        public String searchRoom(DateTime start, DateTime end)
+        public string searchRoom(DateTime start, DateTime end)
         {            
             if(end <= start)
             {
