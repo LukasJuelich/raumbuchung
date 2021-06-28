@@ -1,2 +1,4 @@
 .vs
 packages
+/Raumbuchung/obj/
+/Raumbuchung/bin/Debug

@@ -58,7 +58,7 @@ namespace Raumbuchung
             }
             else
             {
-                return "Verfügbare Räume: " + string.Join(",", roomsAvailable.ToArray());
+                return "Verfügbare Räume(Raum-IDs): " + string.Join(",", roomsAvailable.ToArray());
             }
         }
 
